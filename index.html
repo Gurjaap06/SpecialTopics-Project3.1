@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flashcards — Vanilla JS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <meta
+      name="description"
+      content="Simple flashcards app using Semantic HTML, CSS, and Vanilla JS with LocalStorage."
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Flashcards</h1>
+      <p class="subtitle">Vanilla JS + LocalStorage (no frameworks)</p>
+    </header>
+
+    <main>
+      <!-- Controls -->
+      <section aria-labelledby="controls-title" class="controls">
+        <h2 id="controls-title">Create / Search</h2>
+        <form id="card-form" aria-label="Create or edit a card">
+          <div class="field">
+            <label for="front">Front</label>
+            <textarea
+              id="front"
+              name="front"
+              required
+              placeholder="e.g., What is the capital of Japan?"
+            ></textarea>
+          </div>
+          <div class="field">
+            <label for="back">Back</label>
+            <textarea
+              id="back"
+              name="back"
+              required
+              placeholder="e.g., Tokyo"
+            ></textarea>
+          </div>
+          <div class="field">
+            <label for="tags">Tags (comma-separated)</label>
+            <input id="tags" name="tags" placeholder="e.g., geography,asia" />
+          </div>
+          <div class="actions">
+            <button type="submit" id="save-btn">Add card</button>
+            <button type="reset" id="cancel-edit-btn" class="secondary" hidden>
+              Cancel edit
+            </button>
+          </div>
+          <input type="hidden" id="editing-id" />
+        </form>
+
+        <div class="toolbar">
+          <label for="search" class="visually-hidden">Search</label>
+          <input id="search" placeholder="Search front/back/tags…" />
+          <button id="start-quiz-btn" class="primary">Start Quiz</button>
+          <button id="export-btn">Export JSON</button>
+          <label class="import-label">
+            <input
+              type="file"
+              id="import-file"
+              accept="application/json"
+              hidden
+            />
+            <span>Import JSON</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- List -->
+      <section aria-labelledby="list-title">
+        <h2 id="list-title">Your Cards</h2>
+        <ul id="cards" class="cards" aria-live="polite"></ul>
+        <p id="empty" class="empty" hidden>
+          No cards yet. Add your first one above!
+        </p>
+      </section>
+
+      <!-- Quiz -->
+      <section aria-labelledby="quiz-title" id="quiz" class="quiz hidden">
+        <h2 id="quiz-title">Quiz Mode</h2>
+        <div class="quiz-card" aria-live="polite">
+          <p id="quiz-count"></p>
+          <div
+            class="flip"
+            id="quiz-flip"
+            tabindex="0"
+            role="button"
+            aria-pressed="false"
+            aria-label="Flip card"
+          >
+            <div class="face front" id="quiz-front"></div>
+            <div class="face back" id="quiz-back"></div>
+          </div>
+        </div>
+        <div class="quiz-actions">
+          <button id="quiz-reveal-btn">Reveal</button>
+          <button id="quiz-correct-btn" class="success" disabled>
+            Correct
+          </button>
+          <button id="quiz-wrong-btn" class="danger" disabled>Wrong</button>
+          <button id="quiz-exit-btn" class="secondary">Exit Quiz</button>
+        </div>
+        <p id="quiz-summary" class="summary" hidden></p>
+      </section>
+    </main>
+
+    <footer>
+      <small>WDDM 133 — Project 3.1 • Vanilla only • LocalStorage</small>
+    </footer>
+
+    <div id="sr-status" class="visually-hidden" aria-live="polite"></div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
